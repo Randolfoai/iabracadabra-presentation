@@ -10,7 +10,7 @@ PROJECT_STATE.md
 
 # Versão
 
-1.1
+1.2
 
 ---
 
@@ -31,6 +31,24 @@ Este documento é a fotografia técnica consolidada do projeto — representa o 
 # Classificação
 
 Fotografia Técnica do Projeto
+
+---
+
+# Fase do Projeto
+
+**Fase 1 — Concluída:** fundação técnica, arquitetura, documentação, frontend inicial das dez seções narrativas, integração dos primeiros assets reais, pipeline no GitHub, GitHub Pages e primeira publicação pública.
+
+**Fase 2 — Em andamento:** o foco passa a ser o Experience System, refinamento visual, microinterações, motion design, parallax, carrosséis, Workspace, vídeos definitivos (Hero Loop, Demo Reel), experiência premium e evolução narrativa. Ver `CONTINUIDADE.md` para o detalhamento cronológico e o roadmap completo.
+
+---
+
+# Publicação
+
+- Repositório GitHub: `https://github.com/Randolfoai/iabracadabra-presentation` (remote `origin`).
+- GitHub Pages publicado, com deploy automático via GitHub Actions a cada push em `main`.
+- Workflow: `.github/workflows/deploy-pages.yml` — checkout, Node.js 20, `npm ci` e `npm run build` em `FRONTEND/`, upload de `FRONTEND/out` como artifact, publicação via `actions/deploy-pages`.
+- **URL pública oficial:** `https://randolfoai.github.io/iabracadabra-presentation/`.
+- `next.config.ts`: `output: "export"`, `basePath`/`assetPrefix` (`/iabracadabra-presentation`, apenas em produção), `trailingSlash: true`. Caminhos de mídia hardcoded (raw `<img>`/`<source>`, fora do pipeline de `next/image`) tornados relativos para resolver corretamente sob o subdiretório publicado.
 
 ---
 
@@ -94,6 +112,10 @@ FRONTEND/
 ├── postcss.config.mjs
 └── next.config.ts
 ```
+
+A árvore de `public/media/` permanece sem alterações desde a última verificação — nenhum asset novo foi adicionado.
+
+Na raiz do repositório (fora de `FRONTEND/`), o workflow de publicação está em `.github/workflows/deploy-pages.yml` (ver seção "Publicação").
 
 ---
 
@@ -253,7 +275,10 @@ Toda funcionalidade deve seguir este fluxo antes de ser considerada concluída. 
 # Estado de Qualidade e Git (última verificação)
 
 - **Lint:** `npm run lint` aprovado, sem erros e sem warnings.
-- **Build:** `npm run build` aprovado, sem erros, geração estática completa.
-- **Working tree:** ainda sem novo commit desde a auditoria aprovada nesta sessão — alterações presentes apenas no diretório de trabalho.
-- **Remote:** nenhum remote configurado até o momento.
-- Para o detalhamento de arquivos modificados/novos e o parecer sobre prontidão para checkpoint, ver `CONTINUIDADE.md`.
+- **Build:** `npm run build` aprovado, sem erros, geração estática completa (`FRONTEND/out/` gerado com sucesso, incluindo `index.html`).
+- **Branch principal:** `main`.
+- **Último commit:** `363de2a` — "ci: configure GitHub Pages deployment".
+- **Working tree:** limpo.
+- **Remote:** `origin` configurado — `https://github.com/Randolfoai/iabracadabra-presentation.git`. Local e remoto sincronizados (`main` e `origin/main` no mesmo commit).
+- **Publicação:** apresentação publicada em `https://randolfoai.github.io/iabracadabra-presentation/`, com deploy automático via GitHub Actions a cada push em `main`.
+- Para o detalhamento cronológico de sessões e o histórico completo de commits, ver `CONTINUIDADE.md`.
