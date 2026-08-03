@@ -10,7 +10,7 @@ export function HeroExperience() {
       <Container className="relative flex flex-col items-center gap-8 py-20 text-center sm:py-32">
         {/* eslint-disable-next-line @next/next/no-img-element -- SVG vetorial; next/image rasterizaria a logomarca */}
         <img
-          src="/media/brand/iabracadabra-wordmark.svg"
+          src="media/brand/iabracadabra-wordmark.svg"
           alt={copy.hero.wordmark}
           className="h-auto w-40 sm:w-56"
         />

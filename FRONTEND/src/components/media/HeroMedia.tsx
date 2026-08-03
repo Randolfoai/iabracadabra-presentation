@@ -18,11 +18,11 @@ export function HeroMedia() {
       <picture>
         <source
           media="(max-width: 640px)"
-          srcSet="/media/hero/hero-opening-frame-mobile.webp"
+          srcSet="media/hero/hero-opening-frame-mobile.webp"
         />
         <img
           ref={posterRef}
-          src="/media/hero/hero-opening-frame.webp"
+          src="media/hero/hero-opening-frame.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
@@ -51,16 +51,16 @@ export function HeroMedia() {
       >
         <source
           media="(max-width: 640px)"
-          src="/media/hero/hero-loop-mobile.webm"
+          src="media/hero/hero-loop-mobile.webm"
           type="video/webm"
         />
         <source
           media="(max-width: 640px)"
-          src="/media/hero/hero-loop-mobile.mp4"
+          src="media/hero/hero-loop-mobile.mp4"
           type="video/mp4"
         />
-        <source src="/media/hero/hero-loop-desktop.webm" type="video/webm" />
-        <source src="/media/hero/hero-loop-desktop.mp4" type="video/mp4" />
+        <source src="media/hero/hero-loop-desktop.webm" type="video/webm" />
+        <source src="media/hero/hero-loop-desktop.mp4" type="video/mp4" />
       </video>
     </div>
   );

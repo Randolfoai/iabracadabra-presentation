@@ -20,7 +20,7 @@ export function VisaoDeProduto() {
           label="Visão de Produto — Agência"
           aspect="aspect-[16/9]"
           className="max-w-4xl"
-          src="/media/sections/product-vision-agency.webp"
+          src="media/sections/product-vision-agency.webp"
           alt=""
         />
       </Container>
