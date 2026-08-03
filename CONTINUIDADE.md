@@ -16,7 +16,8 @@ Consolidar e encerrar oficialmente a sessão de desenvolvimento em curso, deixan
    - `iabracadabra-wordmark.svg` substituiu o texto provisório do wordmark por uma `<img>` vetorial real, preservando proporção (`h-auto` + largura fixa), transparência e nitidez, sem rasterizar e sem recriar a marca.
    - As fontes de vídeo do Hero foram reestruturadas de um par único (`hero-loop.webm`/`.mp4`) para quatro fontes com seleção por `media query`: `hero-loop-mobile.webm/mp4` (≤640px) e `hero-loop-desktop.webm/mp4` (fallback), para suportar versões dirigidas separadamente por formato — nunca crop automático.
 3. **Fechamento oficial da sessão** — reescrita de `CONTINUIDADE.md` no novo formato obrigatório, criação de `PROJECT_BLUEPRINT/PROJECT_STATE.md` (fotografia técnica consolidada) e adição do Workflow de Desenvolvimento oficial em `DOCS/AI_COLLABORATION.md`.
-4. **Integração de assets adicionais do Hero e de duas seções, e preparação de checkpoint visual** (esta atualização) — auditoria completa do projeto; integração de `hero-opening-frame-mobile.webp` como poster mobile real do Hero; correção de `HeroMedia.tsx` para exibir corretamente o poster quando ele já vem do cache do navegador (o evento `onLoad` não dispara nesse caso; agora `posterRef.current?.complete` é verificado em um `useEffect`); integração de `how-it-works-confirmation-field.webp` em Como Funciona e `product-vision-agency.webp` em Visão de Produto; extensão de `MediaPlaceholder.tsx` para aceitar `src`/`alt`, com o rótulo de placeholder agora ocultado automaticamente assim que o asset real termina de carregar (permanece visível sem `src`, ou se o carregamento falhar); criação dos diretórios `public/media/icons/`, `public/media/reel/` e `public/media/textures/` (vazios, apenas com `.gitkeep`, preparados para mídia futura); remoção da referência a `demo-reel-poster.webp` em `DemoReel.tsx` (o arquivo nunca existiu no disco) até que o poster real do Demo Reel seja produzido.
+4. **Integração de assets adicionais do Hero e de duas seções, e preparação de checkpoint visual** — auditoria completa do projeto; integração de `hero-opening-frame-mobile.webp` como poster mobile real do Hero; correção de `HeroMedia.tsx` para exibir corretamente o poster quando ele já vem do cache do navegador (o evento `onLoad` não dispara nesse caso; agora `posterRef.current?.complete` é verificado em um `useEffect`); integração de `how-it-works-confirmation-field.webp` em Como Funciona e `product-vision-agency.webp` em Visão de Produto; extensão de `MediaPlaceholder.tsx` para aceitar `src`/`alt`, com o rótulo de placeholder agora ocultado automaticamente assim que o asset real termina de carregar (permanece visível sem `src`, ou se o carregamento falhar); criação dos diretórios `public/media/icons/`, `public/media/reel/` e `public/media/textures/` (vazios, apenas com `.gitkeep`, preparados para mídia futura); remoção da referência a `demo-reel-poster.webp` em `DemoReel.tsx` (o arquivo nunca existiu no disco) até que o poster real do Demo Reel seja produzido.
+5. **Primeiro checkpoint oficial no GitHub** (esta atualização) — o trabalho descrito no item 4 foi commitado (`689ddc0` — "feat: integrate initial responsive media and documentation update"), o repositório remoto oficial foi configurado (`https://github.com/Randolfoai/iabracadabra-presentation`) e o commit foi enviado com sucesso via `git push -u origin main`. O ambiente local e o repositório remoto estão sincronizados na branch `main`.
 
 ## Arquivos criados
 
@@ -55,7 +56,7 @@ Consolidar e encerrar oficialmente a sessão de desenvolvimento em curso, deixan
 ## Estado atual do projeto
 
 - Repositório organizado (`README.md`, `CONTINUIDADE.md`, `DOCS/`, `PROJECT_BLUEPRINT/`, `RFC/`, `ASSETS/`, `MEDIA/`, `DESIGN/`, `BACKEND/`, `FRONTEND/`).
-- Git com **1 commit existente**: hash `ef1a60bc41a0cb9f9d090729ba81aee515430d51`, mensagem `chore: establish project foundation and frontend architecture`, criado em 2026-08-03 06:35:56 -0300. Branch atual: `main`. Working tree limpo (`git status` sem alterações pendentes). **Nenhum remote configurado até o momento.**
+- Git com **2 commits**: `ef1a60b` (`chore: establish project foundation and frontend architecture`, 2026-08-03 06:35:56 -0300) e `689ddc0` (`feat: integrate initial responsive media and documentation update`). Branch atual: `main`. Working tree limpo. **Repositório remoto oficial configurado em `origin`: `https://github.com/Randolfoai/iabracadabra-presentation`** — commit `689ddc0` enviado com sucesso via `git push -u origin main`; local e remoto sincronizados na branch `main`.
 - Frontend em **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS v4**, **App Router**.
 - Storytelling em `PROJECT_BLUEPRINT/01_PRODUCT_STORYTELLING.md`, status **Temporary Working Draft**.
 - `PROJECT_BLUEPRINT/00_MASTER_CONTROL.md` **continua vazio** — não reconstruído nesta sessão.
@@ -133,7 +134,7 @@ Documentais:
 - Preservar responsividade e o fallback de `prefers-reduced-motion` em qualquer alteração futura do Hero.
 - O Hero desktop e o Hero mobile são e devem continuar sendo versões dirigidas separadamente do mesmo filme — nunca crop automático de um único vídeo.
 - Não alterar documentos estratégicos (`PROJECT_BLUEPRINT/`) sem autorização explícita do Autor do Projeto.
-- Não realizar novo commit ou push sem autorização explícita — o primeiro commit (`ef1a60b`, branch `main`) já existe no repositório desde 2026-08-03 06:35:56 -0300; nenhum remote está configurado até o momento desta atualização.
+- Não realizar novo commit ou push sem autorização explícita — o repositório tem 2 commits (`ef1a60b`, `689ddc0`) na branch `main`, já enviados ao repositório remoto oficial `https://github.com/Randolfoai/iabracadabra-presentation`.
 
 ---
 
@@ -154,3 +155,16 @@ O servidor de desenvolvimento normalmente estará disponível em `http://localho
 ## Regra de Atualização
 
 `CONTINUIDADE.md` deverá ser atualizado: ao final de cada sessão; após uma etapa significativa; antes de trocar de computador; antes de trocar de ferramenta de IA; antes de realizar um commit importante.
+
+---
+
+## Próxima sessão
+
+Prioridades para a próxima sessão de desenvolvimento:
+
+1. Revisão visual completa da Landing com o diretor de arte.
+2. Definição do Experience System.
+3. Construção do documento `PROJECT_BLUEPRINT/02_EXPERIENCE_SYSTEM.md`.
+4. Evolução das microinterações.
+5. Integração dos vídeos do Hero.
+6. Evolução da experiência visual das seções.
