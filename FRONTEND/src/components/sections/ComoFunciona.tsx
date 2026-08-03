@@ -17,6 +17,8 @@ export function ComoFunciona() {
           label="Diagrama — Fluxo de Produção"
           aspect="aspect-[16/9]"
           className="max-w-4xl"
+          src="/media/sections/how-it-works-confirmation-field.webp"
+          alt=""
         />
       </Container>
     </section>

@@ -10,7 +10,7 @@ PROJECT_STATE.md
 
 # Versão
 
-1.0
+1.1
 
 ---
 
@@ -68,8 +68,15 @@ FRONTEND/
 │   └── media/
 │       ├── brand/
 │       │   └── iabracadabra-wordmark.svg
-│       └── hero/
-│           └── hero-opening-frame.webp
+│       ├── hero/
+│       │   ├── hero-opening-frame.webp
+│       │   └── hero-opening-frame-mobile.webp
+│       ├── sections/
+│       │   ├── how-it-works-confirmation-field.webp
+│       │   └── product-vision-agency.webp
+│       ├── icons/       (vazio, preparado para mídia futura)
+│       ├── reel/        (vazio, preparado para mídia futura)
+│       └── textures/    (vazio, preparado para mídia futura)
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx
@@ -118,8 +125,8 @@ FRONTEND/
 
 | Componente | Papel |
 |---|---|
-| `HeroMedia` | Camada de mídia do Hero: poster responsivo (`<picture>`) + vídeo em loop com fontes desktop/mobile, com fallback progressivo (opacidade 0 até carregar) e respeito a `prefers-reduced-motion`. |
-| `MediaPlaceholder` | Placeholder genérico elegante para mídia ainda não produzida, usado em `ComoFunciona` e `DemoReel`. |
+| `HeroMedia` | Camada de mídia do Hero: poster responsivo (`<picture>`) + vídeo em loop com fontes desktop/mobile, com fallback progressivo (opacidade 0 até carregar), verificação de cache do navegador (`posterRef.current?.complete`) e respeito a `prefers-reduced-motion`. |
+| `MediaPlaceholder` | Placeholder genérico para mídia ainda não produzida ou já integrada. Aceita `src`/`alt` opcionais para exibir um asset real por cima do placeholder; o rótulo de texto permanece visível sem `src` ou em caso de falha de carregamento (`onError`), e é ocultado automaticamente assim que o asset real termina de carregar (`onLoad`). Usado em `ComoFunciona`, `VisaoDeProduto` (com asset real) e `DemoReel` (ainda sem asset real). |
 
 ---
 
@@ -128,15 +135,27 @@ FRONTEND/
 **Reais, integrados e em uso:**
 
 - `FRONTEND/public/media/hero/hero-opening-frame.webp` — poster do Hero (desktop).
+- `FRONTEND/public/media/hero/hero-opening-frame-mobile.webp` — poster do Hero (mobile).
 - `FRONTEND/public/media/brand/iabracadabra-wordmark.svg` — wordmark oficial da marca.
+- `FRONTEND/public/media/sections/how-it-works-confirmation-field.webp` — mídia de Como Funciona.
+- `FRONTEND/public/media/sections/product-vision-agency.webp` — mídia de Visão de Produto.
 
 **Aguardados pelo código, ainda não existentes:**
 
-- `FRONTEND/public/media/hero/hero-opening-frame-mobile.webp`
 - `FRONTEND/public/media/hero/hero-loop-desktop.webm`
 - `FRONTEND/public/media/hero/hero-loop-desktop.mp4`
 - `FRONTEND/public/media/hero/hero-loop-mobile.webm`
 - `FRONTEND/public/media/hero/hero-loop-mobile.mp4`
+
+**Sem referência ativa no código até que exista (removida deliberadamente):**
+
+- `FRONTEND/public/media/sections/demo-reel-poster.webp` — o Demo Reel exibe o `MediaPlaceholder` sem `src` até que este asset seja produzido.
+
+**Diretórios preparados, ainda vazios:**
+
+- `FRONTEND/public/media/icons/`
+- `FRONTEND/public/media/reel/`
+- `FRONTEND/public/media/textures/`
 
 ---
 
@@ -156,7 +175,8 @@ FRONTEND/
 # Estado do Hero
 
 - Estrutura full-viewport (`min-h-[100svh]`), com respeito a `env(safe-area-inset-*)` para notch/mobile.
-- Poster real (desktop) integrado via `<picture>`, com fallback progressivo (opacidade 0 até `onLoad`); variante mobile do poster ainda pendente.
+- Poster real integrado via `<picture>`, com variantes desktop (`hero-opening-frame.webp`) e mobile (`hero-opening-frame-mobile.webp`, selecionada por `<source media="(max-width:640px)">`), com fallback progressivo (opacidade 0 até carregar).
+- Poster resiliente a cache do navegador: além do `onLoad`, um `useEffect` verifica `posterRef.current?.complete` para cobrir o caso em que a imagem já está em cache e o evento `onLoad` não dispara.
 - Vídeo em loop estruturado para quatro fontes (`hero-loop-desktop.webm/mp4`, `hero-loop-mobile.webm/mp4`, selecionadas por media query); nenhum dos quatro arquivos existe ainda — o vídeo permanece invisível (opacidade 0) até que existam, sem quebrar o layout.
 - Fallback de `prefers-reduced-motion` implementado em `globals.css` (`.hero-video { display: none }`).
 - Wordmark oficial (SVG real) integrado, preservando proporção, transparência e nitidez — sem rasterização, sem recriação da marca.
@@ -170,6 +190,12 @@ FRONTEND/
 1. `hero-opening-frame.webp` como poster real do Hero (desktop).
 2. `iabracadabra-wordmark.svg` como wordmark oficial da marca, substituindo o texto provisório.
 3. Reestruturação das fontes de vídeo do Hero de um par único para quatro variantes desktop/mobile (aguardando os arquivos reais).
+4. `hero-opening-frame-mobile.webp` como poster real do Hero (mobile), integrado via `<source>` de `<picture>`.
+5. Correção de cache do poster do Hero (`posterRef.current?.complete` em `useEffect`).
+6. `how-it-works-confirmation-field.webp` como mídia real de Como Funciona, via `MediaPlaceholder`.
+7. `product-vision-agency.webp` como mídia real de Visão de Produto, via `MediaPlaceholder` (layout da seção ajustado para texto + mídia).
+8. `MediaPlaceholder` estendido com `src`/`alt`: rótulo de texto ocultado automaticamente após carregamento bem-sucedido do asset real, permanecendo visível sem `src` ou em caso de falha de carregamento.
+9. Remoção da referência a `demo-reel-poster.webp` em `DemoReel.tsx` (arquivo inexistente) — o `MediaPlaceholder` do Demo Reel permanece sem `src` até que o asset real seja produzido.
 
 ---
 
@@ -221,3 +247,13 @@ Push
 ```
 
 Toda funcionalidade deve seguir este fluxo antes de ser considerada concluída. Commit e push exigem autorização explícita do Autor do Projeto em cada ocorrência — nunca são executados por padrão. Ver `DOCS/AI_COLLABORATION.md` para o registro oficial deste workflow.
+
+---
+
+# Estado de Qualidade e Git (última verificação)
+
+- **Lint:** `npm run lint` aprovado, sem erros e sem warnings.
+- **Build:** `npm run build` aprovado, sem erros, geração estática completa.
+- **Working tree:** ainda sem novo commit desde a auditoria aprovada nesta sessão — alterações presentes apenas no diretório de trabalho.
+- **Remote:** nenhum remote configurado até o momento.
+- Para o detalhamento de arquivos modificados/novos e o parecer sobre prontidão para checkpoint, ver `CONTINUIDADE.md`.

@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function HeroMedia() {
   const [posterVisible, setPosterVisible] = useState(false);
   const [videoVisible, setVideoVisible] = useState(false);
+  const posterRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (posterRef.current?.complete) {
+      setPosterVisible(true);
+    }
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-transparent">
@@ -14,11 +21,12 @@ export function HeroMedia() {
           srcSet="/media/hero/hero-opening-frame-mobile.webp"
         />
         <img
+          ref={posterRef}
           src="/media/hero/hero-opening-frame.webp"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
-          className={`h-full w-full object-cover transition-opacity duration-700 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
             posterVisible ? "opacity-100" : "opacity-0"
           }`}
           onLoad={() => setPosterVisible(true)}
